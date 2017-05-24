@@ -9,45 +9,49 @@ var countPos1=0;
 var countPos2=0;
 var countPos3=0;
 var countPos4=0;
+var strVal="";
+//alert( 'Привет всем присутствующим!' );
 //if count !=0 -> calculate **** -1->0
 function changeColor1() {
-	document.getElementsByName("color1")[0].style.background=colors1[countPos1+1]; 
 	countPos1++;
-	if (countPos1==9) {
-		countPos1=-1;
+	if (countPos1==10) {
+		countPos1=0;
 	}
+	document.getElementsByName("color1")[0].style.background=colors1[countPos1];
 	calculate();
 }
 function changeColor2() {
-	document.getElementsByName("color2")[0].style.background=colors2[countPos2+1]; 
 	countPos2++;
-	if (countPos2==9) {
-		countPos2=-1;
+	if (countPos2==10) {
+		countPos2=0;
 	}
+	document.getElementsByName("color2")[0].style.background=colors2[countPos2];
 	calculate();
 }
- function changeColor3() {
-	document.getElementsByName("color3")[0].style.background=colors3[countPos3+1]; 
+function changeColor3() {
 	countPos3++;
-	if (countPos3==11) {
-		countPos3=-1;
+	if (countPos3==12) {
+		countPos3=0;
 	}
+	document.getElementsByName("color3")[0].style.background=colors3[countPos3];
 	calculate();
 }
- function changeColor4() {
-	document.getElementsByName("color4")[0].style.background=colors4[countPos4+1]; 
+function changeColor4() {
 	countPos4++;
-	if (countPos4==7) {
-		countPos4=-1;
+	if (countPos4==8) {
+		countPos4=0;
 	}
+	document.getElementsByName("color4")[0].style.background=colors4[countPos4];
 	calculate();
 }
 function calculate(){
 	var valuesRes = ((countPos1*10)+countPos2)*color3acc[countPos3];
-	var strVal=valuesRes+" +/-"+color4acc[countPos4]+"%";
+	strVal=valuesRes+" +/-"+color4acc[countPos4]+"% Om";
 	document.getElementById("show11").innerHTML=strVal;
 }
 function reverseCalculate(){
+	strVal="";
+	document.getElementById("show11").innerHTML="";
 	var val = document.getElementById("textValue");
 	var base=val.value;
 	var te = base;
@@ -57,26 +61,26 @@ function reverseCalculate(){
 			iterator++;
 			te/=10;
 		}
-	var number1=Math.floor(te);
+		var number1=Math.floor(te);
 		te=base;
 		for(var i=0;i<iterator-1;i++){
 			te/=10;
 		}
 		te=te-number1*10;
-	var number2 =Math.floor(te);	
+		var number2 =Math.floor(te);
 		te=base/((number1*10)+number2);
 		var ter=color3acc[0];
 		var number3=0;
 		for (var i = 0; i <color3acc.length; i++) {
 			if(Math.abs(te-color3acc[i])<ter){
 				ter=Math.abs(te-color3acc[i]);
-				number3=i;	
+				number3=i;
 			}
 		}
 		var res = ((number1*10)+number2)*color3acc[number3];
 		var f4 = res-base;
 		var f41=f4/base;
-		number4=0;
+		var number4=0;
 		var ter2=color4acc[0];
 		for (var i = 0; i < color4acc.length; i++) {
 			if (Math.abs(f41-color3acc[i])<ter2) {
@@ -87,6 +91,11 @@ function reverseCalculate(){
 		document.getElementsByName("color1")[0].style.background=colors1[number1];
 		document.getElementsByName("color2")[0].style.background=colors2[number2];
 		document.getElementsByName("color3")[0].style.background=colors3[number3];
-		document.getElementsByName("color4")[0].style.background=colors4[number4];	
+		document.getElementsByName("color4")[0].style.background=colors4[number4];
+
+		var countPos1=number1;
+		var countPos2=number2;
+		var countPos3=number3;
+		var countPos4=number4;
 	}
 }
